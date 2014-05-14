@@ -1,5 +1,10 @@
 package org.skullabs.game.people;
 
-public abstract class Peasant {
+public class Peasant {
+	private int health = 100;
+
+	public boolean isAlive() {
+		return health != 0;
+	}
 
 }

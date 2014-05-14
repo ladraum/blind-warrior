@@ -8,10 +8,4 @@ public class VillageTest {
 	public void grantThatVillageExists() {
 		new Village();
 	}
-
-	@Test
-	public void grantThatVillageCanBeInvaded() {
-		Village village = new Village();
-		village.invade();
-	}
 }

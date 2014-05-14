@@ -3,36 +3,31 @@ package org.skullabs.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Delegate;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+import lombok.experimental.ExtensionMethod;
+
 import org.skullabs.game.people.Enemy;
-import org.skullabs.game.people.Innocent;
-import org.skullabs.game.people.Peasant;
+import org.skullabs.game.util.LangExtension;
+import org.skullabs.game.util.PeasantAliveCondition;
+import org.skullabs.game.utils.Sizable;
 
-public class GermanArmy {
+@RequiredArgsConstructor
+@ExtensionMethod( LangExtension.class )
+public class GermanArmy implements Iterable<Enemy>, Sizable {
 
-	private static final int ARMY_SIZE = 90;
-	private static final int INNOCENT_SIZE = 10;
-	private List<Peasant> army;
+	@Delegate( types = { Iterable.class, Sizable.class } )
+	final List<Enemy> army;
 
-	public GermanArmy() {
-		buildArmy();
+	public boolean isDefeated() {
+		return !army.contains( new PeasantAliveCondition<Enemy>() );
 	}
 
-	private void buildArmy() {
-		army = new ArrayList<Peasant>();
-		for (int i = 0; i < ARMY_SIZE; i++)
-			addEnemyToArmy();
-		for (int i = 0; i < INNOCENT_SIZE; i++)
-			addInnocentToArmy();
+	public static GermanArmy populatedWith( int size ) {
+		val newArmy = new ArrayList<Enemy>();
+		for ( int i = 0; i < size; i++ )
+			newArmy.add( new Enemy() );
+		return new GermanArmy( newArmy );
 	}
-
-	private void addEnemyToArmy() {
-		Enemy enemy = new Enemy();
-		army.add( enemy );
-	}
-
-	private void addInnocentToArmy() {
-		Innocent innocent = new Innocent();
-		army.add( innocent );
-	}
-
 }
