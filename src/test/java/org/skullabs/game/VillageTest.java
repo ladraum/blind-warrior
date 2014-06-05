@@ -6,6 +6,6 @@ public class VillageTest {
 
 	@Test
 	public void grantThatVillageExists() {
-		new Village();
+		new Village( null );
 	}
 }

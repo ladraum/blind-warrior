@@ -6,7 +6,7 @@ public class GermanArmyTest {
 
 	@Test
 	public void grantThatArmyExists() {
-		new Crowd();
+		new GermanArmy( null );
 	}
 
 }
